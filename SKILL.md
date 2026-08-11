@@ -10,20 +10,21 @@ Convert tutorial video evidence into an auditable implementation. Keep the two a
 ## Workflow
 
 1. Create a clean work directory for the tutorial.
-2. Run `python scripts/doctor.py` and resolve required dependency failures.
-3. Run `python scripts/extract_youtube.py <url> --output <work-dir>/evidence`.
-4. Inspect `<work-dir>/evidence/manifest.json`, `transcript.txt`, and sampled frames.
-5. Produce analysis A from only the extracted transcript and frames.
-6. Produce analysis B independently:
+2. Resolve script paths relative to this skill directory. In Claude Code, use `${CLAUDE_SKILL_DIR}`.
+3. Run `python scripts/doctor.py` and resolve required dependency failures.
+4. Run `python scripts/extract_youtube.py <url> --output <work-dir>/evidence`.
+5. Inspect `<work-dir>/evidence/manifest.json`, `transcript.txt`, and sampled frames.
+6. Produce analysis A from only the extracted transcript and frames.
+7. Produce analysis B independently:
    - Prefer Gemini or another model with native YouTube viewing.
    - Do not provide analysis A to the second reviewer.
    - If no independent reviewer is available, stop and tell the user the evidence has only one source. Do not label claims confirmed.
-7. Save both analyses as JSON using [references/analysis-schema.md](references/analysis-schema.md).
-8. Run `python scripts/reconcile.py analysis-a.json analysis-b.json --output reconciliation.json`.
-9. Review only entries labeled `conflict` or `single-source`. Ask the user only when a conflict materially changes the implementation.
-10. Write `agent-spec.md` with the confirmed workflow, inputs, outputs, dependencies, failure modes, and unresolved claims.
-11. Use `$skill-creator` to implement the target skill. Keep evidence and generated outputs outside the target skill unless they are needed at runtime.
-12. Validate the generated skill and run a realistic smoke test. Report commands, exit codes, and relevant output.
+8. Save both analyses as JSON using [references/analysis-schema.md](references/analysis-schema.md).
+9. Run `python scripts/reconcile.py analysis-a.json analysis-b.json --output reconciliation.json`.
+10. Review only entries labeled `conflict` or `single-source`. Ask the user only when a conflict materially changes the implementation.
+11. Write `agent-spec.md` with the confirmed workflow, inputs, outputs, dependencies, failure modes, and unresolved claims.
+12. Use the available skill-creator (`$skill-creator` in Codex or `/skill-creator` in Claude Code) to implement the target skill. Keep evidence and generated outputs outside the target skill unless they are needed at runtime.
+13. Validate the generated skill and run a realistic smoke test. Report commands, exit codes, and relevant output.
 
 ## Evidence rules
 

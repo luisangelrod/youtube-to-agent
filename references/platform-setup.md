@@ -30,3 +30,24 @@ python3 scripts/smoke_test.py
 ```
 
 On Windows, `python` may replace `python3`. The doctor exits nonzero only when a required dependency is missing; the smoke test uses no network and must exit zero.
+
+## Claude Code personal installation
+
+Claude Code loads personal skills from `~/.claude/skills/<skill-name>/SKILL.md` and invokes this skill as `/youtube-to-agent`.
+
+To share one installation between Codex and Claude Code on Windows, create a directory junction in PowerShell:
+
+```powershell
+New-Item -ItemType Junction `
+  -Path "$env:USERPROFILE\.claude\skills\youtube-to-agent" `
+  -Target "$env:USERPROFILE\.codex\skills\youtube-to-agent"
+```
+
+On macOS, install once for Codex and create a symbolic link for Claude Code:
+
+```bash
+mkdir -p "$HOME/.claude/skills"
+ln -s "${CODEX_HOME:-$HOME/.codex}/skills/youtube-to-agent" "$HOME/.claude/skills/youtube-to-agent"
+```
+
+If the top-level `~/.claude/skills` directory was created after Claude Code started, restart Claude Code once. Otherwise, Claude Code detects the new skill during the current session.
