@@ -1,0 +1,4 @@
+interface:
+  display_name: "YouTube to Agent"
+  short_description: "Turn tutorials into tested Codex skills"
+  default_prompt: "Use $youtube-to-agent to turn this YouTube tutorial into a tested, reusable Codex skill."
