@@ -5,10 +5,12 @@ The skill itself uses Python's standard library. YouTube extraction additionally
 ## macOS
 
 ```bash
-python3 -m pip install --user yt-dlp imageio-ffmpeg
+brew install python yt-dlp ffmpeg
 git clone https://github.com/luisangelrod/youtube-to-agent.git "${CODEX_HOME:-$HOME/.codex}/skills/youtube-to-agent"
 python3 "${CODEX_HOME:-$HOME/.codex}/skills/youtube-to-agent/scripts/doctor.py"
 ```
+
+If Homebrew is unavailable, install Python 3.10 or newer and use `python3 -m pip install --user yt-dlp imageio-ffmpeg` in a Python environment that permits user packages.
 
 Install Gemini CLI only when using Gemini as the independent reviewer. Another genuinely independent reviewer is acceptable.
 
